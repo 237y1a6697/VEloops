@@ -1,26 +1,17 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { WalletProvider } from './context/WalletContext';
+import Games from './pages/Games';
+import GameHome from './pages/GameHome';
+import GamePlay from './pages/GamePlay';
+import Redeem from './pages/Redeem';
 
-function GamesPlaceholder() {
-  return (
-    <main className="app-shell">
-      <section className="container py-5">
-        <p className="eyebrow">VELOOP</p>
-        <h1>Games</h1>
-        <p className="text-secondary">The Games Hub is the next build step.</p>
-      </section>
-    </main>
-  );
+export default function App() {
+  return <WalletProvider><BrowserRouter><Routes>
+    <Route path="/" element={<Navigate to="/games" replace />} />
+    <Route path="/games" element={<Games />} />
+    <Route path="/games/:gameId" element={<GameHome />} />
+    <Route path="/games/:gameId/play" element={<GamePlay />} />
+    <Route path="/redeem" element={<Redeem />} />
+    <Route path="*" element={<Navigate to="/games" replace />} />
+  </Routes></BrowserRouter></WalletProvider>;
 }
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/games" replace />} />
-        <Route path="/games" element={<GamesPlaceholder />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
-
-export default App;
